@@ -1,0 +1,34 @@
+digraph ZeldaEagleDungeon {
+  // The Legend of Zelda - Level 1: The Eagle (VGLC Representation)
+  // Knoten: s=Start, k=Key, e=Enemy, m=Map, b=Boss, t=Triforce/Goal
+  // Kanten: open=Offene Tür, locked=Schlüsseltür, shutter=Gittertor, bomb=Sprengwand
+
+  Entrance [label="s (Start)", pos="3,7"];
+  Room_3_6 [label="k (Key)", pos="3,6"];
+  Crossroads_3_5 [label="e (Enemy)", pos="3,5"];
+  WestWing_2_5 [label="e (Enemy)", pos="2,5"];
+  KeyVault_1_5 [label="k (Key)", pos="1,5"];
+  EastWing_4_5 [label="m (Map)", pos="4,5"];
+  EastVault_5_5 [label="k (Key)", pos="5,5"];
+  Corridor_3_4 [label="e (Enemy)", pos="3,4"];
+  WestAlcove_2_4 [label="k (Key)", pos="2,4"];
+  EastAlcove_4_4 [label="e (Enemy)", pos="4,4"];
+  UpperHall_3_3 [label="k (Key)", pos="3,3"];
+  BossAntechamber_2_3 [label="e (Enemy)", pos="2,3"];
+  BossRoom_1_3 [label="b (Boss)", pos="1,3"];
+  TriforceRoom_0_3 [label="t (Triforce Goal)", pos="0,3"];
+
+  Entrance -> Room_3_6 [label="open"];
+  Room_3_6 -> Crossroads_3_5 [label="open"];
+  Crossroads_3_5 -> WestWing_2_5 [label="open"];
+  WestWing_2_5 -> KeyVault_1_5 [label="locked"];
+  Crossroads_3_5 -> EastWing_4_5 [label="open"];
+  EastWing_4_5 -> EastVault_5_5 [label="locked"];
+  Crossroads_3_5 -> Corridor_3_4 [label="locked"];
+  Corridor_3_4 -> WestAlcove_2_4 [label="open"];
+  Corridor_3_4 -> EastAlcove_4_4 [label="open"];
+  Corridor_3_4 -> UpperHall_3_3 [label="locked"];
+  UpperHall_3_3 -> BossAntechamber_2_3 [label="open"];
+  BossAntechamber_2_3 -> BossRoom_1_3 [label="locked"];
+  BossRoom_1_3 -> TriforceRoom_0_3 [label="shutter"];
+}
