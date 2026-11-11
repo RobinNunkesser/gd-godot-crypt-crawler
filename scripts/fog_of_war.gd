@@ -5,10 +5,10 @@ extends Node2D
 ## Nutzt CanvasModulate für Dunkelheit und PointLight2D für Sichtfeldradius.
 
 @export var is_enabled: bool = true
-@export var ambient_darkness: Color = Color(0.08, 0.08, 0.12, 1.0)
+@export var ambient_darkness: Color = Color(0.25, 0.28, 0.35, 1.0)
 @export var ambient_bright: Color = Color(1.0, 1.0, 1.0, 1.0)
-@export var light_energy: float = 1.2
-@export var light_texture_size: int = 512
+@export var light_energy: float = 1.4
+@export var light_texture_size: int = 768
 
 var modulate_node: CanvasModulate = null
 var torch_light: PointLight2D = null
@@ -54,3 +54,4 @@ func _create_radial_gradient_texture(size: int) -> GradientTexture2D:
 	texture.fill_from = Vector2(0.5, 0.5)
 	texture.fill_to = Vector2(1.0, 0.5)
 	return texture
+

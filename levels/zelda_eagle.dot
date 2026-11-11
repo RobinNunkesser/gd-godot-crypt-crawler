@@ -32,3 +32,4 @@ digraph ZeldaEagleDungeon {
   BossAntechamber_2_3 -> BossRoom_1_3 [label="locked"];
   BossRoom_1_3 -> TriforceRoom_0_3 [label="shutter"];
 }
+

@@ -22,6 +22,14 @@ func _ready() -> void:
 	# Sicherstellen, dass Kollisionslayer und -maske definiert sind
 	collision_layer = 1
 	collision_mask = 1 | 2 # Layer 1: Wände, Layer 2: Türen
+	z_index = 10 # Immer über dem Boden und Objekten zeichnen
+
+	var shape = CollisionShape2D.new()
+	shape.name = "CollisionShape2D"
+	var circ = CircleShape2D.new()
+	circ.radius = 12.0
+	shape.shape = circ
+	add_child(shape)
 
 func _physics_process(delta: float) -> void:
 	if has_won:
@@ -69,3 +77,4 @@ func _draw() -> void:
 	draw_circle(nose_pos, 4.0, Color(1.0, 0.85, 0.2))
 	# Kontur
 	draw_arc(Vector2.ZERO, 12.0, 0, TAU, 16, Color.WHITE, 1.5)
+

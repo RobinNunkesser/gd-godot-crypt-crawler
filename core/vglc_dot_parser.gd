@@ -140,15 +140,38 @@ static func _parse_attributes(attr_string: String) -> Dictionary:
 	if attr_string.is_empty():
 		return result
 
-	var pairs = attr_string.split(",")
-	for pair in pairs:
-		var eq_idx = pair.find("=")
-		if eq_idx != -1:
-			var key = pair.substr(0, eq_idx).strip_edges()
-			var val = pair.substr(eq_idx + 1).strip_edges()
-			if val.begins_with("\"") and val.ends_with("\""):
-				val = val.substr(1, val.length() - 2)
-			result[key] = val
+	var current_key = ""
+	var current_val = ""
+	var in_quotes = false
+	var in_value = false
+
+	var i = 0
+	while i < attr_string.length():
+		var c = attr_string[i]
+		if c == '"':
+			in_quotes = not in_quotes
+		elif c == '=' and not in_quotes and not in_value:
+			in_value = true
+			i += 1
+			continue
+		elif (c == ',' or c == ';') and not in_quotes:
+			if not current_key.is_empty():
+				result[current_key.strip_edges()] = current_val.strip_edges().trim_prefix('"').trim_suffix('"')
+			current_key = ""
+			current_val = ""
+			in_value = false
+			i += 1
+			continue
+
+		if in_value:
+			current_val += c
+		else:
+			current_key += c
+		i += 1
+
+	if not current_key.is_empty():
+		result[current_key.strip_edges()] = current_val.strip_edges().trim_prefix('"').trim_suffix('"')
+
 	return result
 
 static func parse_file(path: String) -> DungeonGraph:

@@ -78,6 +78,11 @@ func test_vglc_parser() -> bool:
 		print("  -> Unerwarteter Zielraum: ", graph.goal_room_id)
 		return false
 
+	var entrance = graph.get_room("Entrance")
+	if entrance.grid_pos != Vector2i(3, 7):
+		print("  -> Unerwartete Koordinaten für Entrance: ", entrance.grid_pos)
+		return false
+
 	print("  -> Gepolsterte Räume: %d, Türen: %d" % [graph.rooms.size(), graph.doors.size()])
 	return true
 
@@ -154,8 +159,15 @@ func test_bsp_generator() -> bool:
 
 func test_player_and_inventory() -> bool:
 	var player = Player.new()
+	player._ready()
+
+	if not player.has_node("CollisionShape2D"):
+		print("  -> Spieler besitzt keinen CollisionShape2D!")
+		player.free()
+		return false
 
 	if player.keys_count != 0:
+		player.free()
 		return false
 
 	player.add_key(2)
